@@ -4,10 +4,19 @@ pub enum Keyword {
     If,
 }
 
+#[derive(Clone)]
+pub enum Operator {
+    Plus,
+    Mult,
+    Greater,
+    Less,
+    Equal,
+}
+
 pub enum Token {
     LParen,
     RParen,
-    Oper(char),
+    Oper(Operator),
     Constant(String),
     Keyword(Keyword),
 }
@@ -24,6 +33,8 @@ fn is_single_character_token(c: char) -> bool {
         '+'   => true,
         '*'   => true,
         '>'   => true,
+        '<'   => true,
+        '='   => true,
         _     => false,
     }
 }
@@ -32,19 +43,22 @@ fn get_single_character_token(c: char) -> Token {
     match c {
         '('   => Token::LParen,
         ')'   => Token::RParen,
-        _     => Token::Oper(c),
+        '+'   => Token::Oper(Operator::Plus),
+        '*'   => Token::Oper(Operator::Mult),
+        '>'   => Token::Oper(Operator::Greater),
+        '<'   => Token::Oper(Operator::Less),
+        '='   => Token::Oper(Operator::Equal),
+        _     => panic!("Unable to match single character token!"),
     }
 }
 
 fn get_constant_or_keyword(v: &Vec<char>) -> Token {
     let s = v.iter().cloned().collect::<String>();
-    if s == "define" {
-        return Token::Keyword(Keyword::Define);
+    match s.as_str() {
+        "define" => Token::Keyword(Keyword::Define),
+        "if"     => Token::Keyword(Keyword::If),
+        _                      => Token::Constant(s),
     }
-    if s == "if" {
-        return Token::Keyword(Keyword::If);
-    }
-    return Token::Constant(s);
 }
 
 fn is_whitespace(c: char) -> bool {

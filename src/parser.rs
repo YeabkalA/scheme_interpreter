@@ -1,6 +1,7 @@
 
 use lexer::Token;
 use lexer::Keyword;
+use lexer::Operator;
 use evaluator::Expression;
 use environment::Environment;
 use predicate::Predicate;
@@ -66,9 +67,9 @@ fn parse_compound(mut tokens: &mut Vec<Token>, environment: &Environment) -> Exp
 
     // create a token, must be + or *
     match c {
-        '+'  => Expression::Plus(expressions),
-        '*'  => Expression::Mult(expressions),
-        _    => panic!(),
+        Operator::Plus  => Expression::Plus(expressions),
+        Operator::Mult  => Expression::Mult(expressions),
+        _               => panic!("unexpected operator"),
     }
 
 }
@@ -80,7 +81,7 @@ fn constant_to_expression(s: String, environment: &Environment) -> Expression {
             return expr.clone();
         }
     }
-    return Expression::Number(s.parse::<i32>().unwrap());
+    return Expression::Number(s.parse::<f64>().unwrap());
 }
 
 pub fn parse(mut tokens: &mut Vec<Token>, environment: &Environment) -> Expression {
