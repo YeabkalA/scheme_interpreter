@@ -94,7 +94,6 @@ fn parse_compound(mut tokens: &mut Vec<Token>, environment: &Environment) -> Exp
 
 fn constant_to_expression(s: String, environment: &Environment) -> Expression {
 	let expr = environment.variables.get(&s);
-	println!("evaluating constant {}",s);
 	match expr {
 		Some(a) => a.clone(),
 		_ => Expression::Number(s.parse::<f64>().unwrap()),
