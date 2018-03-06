@@ -1,9 +1,12 @@
-
+#[derive(Debug)]
+#[derive(Clone)]
 pub enum Keyword {
     Define,
+	Deffun,
     If,
 }
 
+#[derive(Debug)]
 #[derive(Clone)]
 pub enum Operator {
     Plus,
@@ -13,6 +16,8 @@ pub enum Operator {
     Equal,
 }
 
+#[derive(Debug)]
+#[derive(Clone)]
 pub enum Token {
     LParen,
     RParen,
@@ -56,6 +61,7 @@ fn get_constant_or_keyword(v: &Vec<char>) -> Token {
     let s = v.iter().cloned().collect::<String>();
     match s.as_str() {
         "define" => Token::Keyword(Keyword::Define),
+        "deffun" => Token::Keyword(Keyword::Deffun),
         "if"     => Token::Keyword(Keyword::If),
         _                      => Token::Constant(s),
     }

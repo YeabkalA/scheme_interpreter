@@ -1,10 +1,10 @@
 
-use lexer::Token;
 use lexer::Operator;
 use evaluator::Expression;
 use evaluator::evaluate;
 
 #[derive(Clone)]
+#[derive(Debug)]
 pub struct Predicate {
     pub operator: Operator,
     pub l_hand: Expression,

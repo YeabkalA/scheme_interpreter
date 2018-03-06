@@ -1,7 +1,7 @@
 use predicate::*;
 
-
 #[derive(Clone)]
+#[derive(Debug)]
 pub enum Expression {
     Number(f64),
     Plus(Vec<Expression>),
