@@ -89,10 +89,10 @@ fn test_sum_of_squares_with_variables() {
     assert_eq!(val, 13.0);
 }
 
-// #[test]
-// fn test_function_variable_mangling() {
-//     let env = String::from("(define (square x) (* x x))(define (x 6))");
-//     let expr = String::from("(square x)");
-//     let val = interpret_with_environment_string(expr, env);
-//     assert_eq!(val, 36.0);
-// }
+#[test]
+fn test_function_variable_mangling() {
+    let env = String::from("(deffun (square x) (* x x))(define (x 6))");
+    let expr = String::from("(square x)");
+    let val = interpret_with_environment_string(expr, env);
+    assert_eq!(val, 36.0);
+}

@@ -2,7 +2,6 @@ use evaluator::*;
 use lexer::*;
 use parser::*;
 use environment::*;
-// use std::collections::HashMap;
 
 #[derive(Clone)]
 #[derive(Debug)]
