@@ -16,6 +16,14 @@ pub enum Operator {
     Equal,
 }
 
+#[derive(Clone)]
+#[derive(Debug)]
+pub enum CompoundPredicateType {
+	Or,
+	And,
+	Not,
+}
+
 #[derive(Debug)]
 #[derive(Clone)]
 pub enum Token {
@@ -24,6 +32,7 @@ pub enum Token {
     Oper(Operator),
     Constant(String),
     Keyword(Keyword),
+	CompoundPredicate(CompoundPredicateType),
 }
 
 enum TokenizationState {
@@ -63,7 +72,10 @@ fn get_constant_or_keyword(v: &Vec<char>) -> Token {
         "define" => Token::Keyword(Keyword::Define),
         "deffun" => Token::Keyword(Keyword::Deffun),
         "if"     => Token::Keyword(Keyword::If),
-        _                      => Token::Constant(s),
+		"or"	 => Token::CompoundPredicate(CompoundPredicateType::Or),
+		"and"	 => Token::CompoundPredicate(CompoundPredicateType::And),
+		"not"	 => Token::CompoundPredicate(CompoundPredicateType::Not),
+        _        => Token::Constant(s),
     }
 }
 

@@ -7,6 +7,7 @@ pub enum Expression {
     Plus(Vec<Expression>),
     Mult(Vec<Expression>),
     Predicate(Box<Predicate>),
+	CompoundPredicate(Box<CompoundPredicate>),
 }
 
 pub fn evaluate(e: &Expression) -> Result<f64, &'static str> {
@@ -15,6 +16,7 @@ pub fn evaluate(e: &Expression) -> Result<f64, &'static str> {
         &Expression::Plus(ref v)          => Ok(v.iter().map(|y| evaluate(y).ok().unwrap()).fold(0.0, |acc, x| acc+x)),
         &Expression::Mult(ref v)          => Ok(v.iter().map(|y| evaluate(y).ok().unwrap()).fold(1.0, |acc, x| acc*x)),
         &Expression::Predicate(ref p)     => evaluate(&p.evaluate()),
+		&Expression::CompoundPredicate(ref c) => evaluate(&c.evaluate()),
     }
 }
 
