@@ -126,7 +126,22 @@ fn test_compound_predicate_raw_false_or() {
 #[test]
 fn test_compound_or_from_string() {
     let env = String::from("(define (x 5)) (define (y 6)) (define (z 1))");
-    let expr = String::from("(or ((> x y) (= x y)) z 0)");
+    let expr = String::from("(or ((< x y) (= x y)) z 0)");
+    let val = interpret_with_environment_string(expr, env);
+    assert_eq!(val, 1.0);
+}
+
+#[test]
+fn test_compound_and_from_string() {
+    let env = String::from("(define (x 5)) (define (y 6)) (define (z 1))");
+    let expr = String::from("(and ((> x y) (= x y)) z 0)");
     let val = interpret_with_environment_string(expr, env);
     assert_eq!(val, 0.0);
+}
+#[test]
+fn test_compound_not_from_string() {
+    let env = String::from("(define (x 5)) (define (y 6)) (define (z 1))");
+    let expr = String::from("(not ((> x y) (= x y)) z 0)");
+    let val = interpret_with_environment_string(expr, env);
+    assert_eq!(val, 1.0);
 }

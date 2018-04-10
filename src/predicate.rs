@@ -75,9 +75,9 @@ impl CompoundPredicate {
 
 	pub fn evaluate(&self) -> Expression {
 		match self.compound {
-			ref Or		=> self.evaluate_or(),
-			ref And		=> self.evaluate_and(),
-			ref Not		=> self.evaluate_not(),
+			CompoundPredicateType::Or		=> self.evaluate_or(),
+			CompoundPredicateType::And		=> self.evaluate_and(),
+			CompoundPredicateType::Not		=> self.evaluate_not(),
 		}
 	}
 	
